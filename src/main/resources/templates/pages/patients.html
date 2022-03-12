@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org"
+ th:replace="~{pages/main-layout::main-fragment(~{::#content})}">
+<head>
+    <meta charset="UTF-8">
+    <title>Patients</title>
+</head>
+<body>
+   <div >
+       <div id="content" class="container mt-5">
+           <div class="card">
+               <div class="card-header">Liste des patients</div>
+               <div class="card-body">
+                   <form method="get" th:action="@{patients}">
+                       <div class="form-group">
+                           <label>Name</label>
+                           <input type="text" name="keyword" th:value="${keyword}">
+                           <button class="btn btn-success">Chercher</button>
+                       </div>
+                   </form>
+                   <table class="table">
+                       <tr>
+                           <th>ID</th><th>NAME</th><th>Date Naissance</th><th>malade</th><th>Score</th>
+                       </tr>
+                       <tr th:each="p:${patients}">
+                           <td th:text="${p.id}"></td>
+                           <td th:text="${p.name}"></td>
+                           <td th:text="${p.dateNaissance}"></td>
+                           <td th:text="${p.malade}"></td>
+                           <td th:text="${p.score}"></td>
+                           <td>
+                               <a class="btn btn-success" th:href="@{editPatient(id=${p.id})}">Edit</a>
+                           </td>
+                       </tr>
+                   </table>
+                   <ul class="nav nav-pills">
+                       <li  th:each="page,status:${pages}">
+                           <a th:class="${status.index==currentPage?'btn btn-primary':'btn'}" th:href="@{patients(page=${status.index},keyword=${keyword})}" th:text="${status.index}"></a>
+                       </li>
+                   </ul>
+               </div>
+           </div>
+       </div>
+   </div>
+</body>
+</html>
