@@ -1,6 +1,8 @@
 <!DOCTYPE html>
-<html lang="en" xmlns:th="http://www.thymeleaf.org"
- th:fragment="main-fragment(mainContent)">
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity4"
+      th:fragment="main-fragment(mainContent)" >
 <head>
     <meta charset="UTF-8">
     <title>Title</title>
@@ -20,16 +22,19 @@
         <li class="nav-item">
             <a class="nav-link" href="#">Medecins</a>
         </li>
-        <li class="nav-item">
+        <li class="nav-item" sec:authorize="hasRole('ROLE_ADMIN')">
             <a class="nav-link" th:href="@{formPatient}">Ajouter Patient</a>
         </li>
         <li class="nav-item">
+            <a class="nav-link" ><span sec:authentication="name"></span></a>
+        </li>
+        <li sec:authorize="isAuthenticated()" class="nav-item">
             <a class="nav-link" th:href="@{logout}">Deconnexion</a>
         </li>
     </ul>
 </nav>
 <section th:insert="${mainContent}">
-  Middle
+    Middle
 </section>
 </body>
 </html>

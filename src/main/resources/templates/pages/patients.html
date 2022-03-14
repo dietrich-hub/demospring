@@ -1,6 +1,7 @@
 <!DOCTYPE html>
 <html lang="en" xmlns:th="http://www.thymeleaf.org"
- th:replace="~{pages/main-layout::main-fragment(~{::#content})}">
+      xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity4"
+      th:replace="~{pages/main-layout::main-fragment(~{::#content})}">
 <head>
     <meta charset="UTF-8">
     <title>Patients</title>
@@ -28,7 +29,7 @@
                            <td th:text="${p.dateNaissance}"></td>
                            <td th:text="${p.malade}"></td>
                            <td th:text="${p.score}"></td>
-                           <td>
+                           <td sec:authorize="hasRole('ROLE_ADMIN')">
                                <a class="btn btn-success" th:href="@{editPatient(id=${p.id})}">Edit</a>
                            </td>
                        </tr>
