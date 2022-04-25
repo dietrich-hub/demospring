@@ -56,4 +56,9 @@ public class PatientController {
     public Patient getOne(@PathVariable Long id){
         return patientRepository.findById(id).get();
     }
+
+    @GetMapping("/")
+    public String home(){
+        return "redirect:/patients";
+    }
 }
